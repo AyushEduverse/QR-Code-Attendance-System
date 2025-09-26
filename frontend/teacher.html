@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher QR Generator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generate QR Code for Attendance</h1>
+        <div class="two-column-layout">
+            <div class="left-panel">
+                <div class="form-group">
+                    <label for="session-data">Session Name:</label>
+                    <input type="text" id="session-data" placeholder="Python Training" required>
+                </div>
+                <button id="start-session-btn">Start Session & Generate QR Code</button>
+                <p id="message" style="color: green; margin-top: 20px;"></p>
+            </div>
+            <div class="right-panel">
+                <div id="qr-code-display" style="margin-top: 30px;">
+                    <img id="qr-image" src="" alt="Generated QR Code" style="display:none; max-width: 100%;">
+                    <p id="qr-link-text" style="display:none; word-wrap: break-word;">Scan this QR code:</p>
+                    <a id="qr-link" href="#" target="_blank" style="display:none;"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="teacher.js"></script>
+</body>
+</html>
+

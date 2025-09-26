@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+qrcode
+Pillow
+gspread
+oauth2client
+gspread_formatting

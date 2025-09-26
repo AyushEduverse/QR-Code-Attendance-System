@@ -1,0 +1,293 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0f2f7; /* Lighter, softer blue */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #3f51b5; /* Deeper blue for text */
+    line-height: 1.6;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px; /* Slightly more rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+    text-align: center;
+    width: 100%;
+    max-width: 600px; /* Slightly wider container */
+    box-sizing: border-box;
+    animation: fadeInContainer 1s ease-out; /* Add fade-in animation for container */
+}
+
+@keyframes fadeInContainer {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    color: #3f51b5; /* Primary Material UI blue */
+    margin-bottom: 30px;
+    font-weight: 700; /* Bolder for impact */
+    font-size: 2.5em; /* Larger heading */
+}
+
+#qr-reader {
+    width: 100% !important;
+    max-width: 500px;
+    margin: 0 auto 30px auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#qr-reader__dashboard_section_csr span {
+    color: #555;
+}
+
+#qr-reader-results {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #555;
+    font-size: 1.1em;
+}
+
+.form-group input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 14px;
+    border: 1px solid #c5cae9; /* Softer border color */
+    border-radius: 8px; /* More rounded input fields */
+    font-size: 1.05em;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.form-group input[type="text"]:focus {
+    border-color: #3f51b5; /* Material UI primary blue on focus */
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(63, 81, 181, 0.3); /* Softer focus shadow */
+}
+
+button {
+    background-color: #3f51b5; /* Material UI primary blue */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Enhanced transitions */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #303f9f; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0); /* Press down effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button:disabled {
+    background-color: #9fa8da; /* Lighter blue for disabled state */
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* New styles for two-column layout on teacher.html */
+.two-column-layout {
+    display: flex;
+    flex-direction: column; /* Default to column on small screens */
+    gap: 30px; /* Space between columns */
+    margin-top: 30px;
+    transition: all 0.7s ease-in-out; /* Smooth transition for layout changes */
+    align-items: center; /* Center items in single column */
+    width: 100%;
+}
+
+.left-panel {
+    flex: 1;
+    min-width: 280px; /* Ensure input panel has minimum readable width */
+    width: 100%; /* Take full width in single column */
+}
+
+.right-panel {
+    flex: 0; /* Initially hidden, takes no space */
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    min-height: 0; /* No min-height when hidden */
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+    opacity: 0; /* Start invisible */
+    transform: scale(0.8); /* Start smaller */
+    transition: flex 0.7s ease-in-out, opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s; /* Transition for reveal */
+}
+
+.two-column-layout.show-two-columns {
+    /* Styles when two-column layout is active */
+    @media (min-width: 992px) { /* Apply two-column layout on larger screens */
+        flex-direction: row;
+        align-items: flex-start; /* Align items to the top */
+    }
+}
+
+.two-column-layout.show-two-columns .left-panel {
+    width: auto; /* Allow flex to determine width */
+}
+
+.two-column-layout.show-two-columns .right-panel {
+    flex: 1; /* Take up space */
+    display: flex; /* Make visible */
+    min-height: 250px; /* Restore min-height */
+    opacity: 1; /* Fade in */
+    transform: scale(1); /* Pop in */
+    animation: qrScreenOpen 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; /* Enhanced QR screen open animation */
+}
+
+@keyframes qrScreenOpen {
+    0% { opacity: 0; transform: scale(0.5); }
+    70% { opacity: 1; transform: scale(1.1); } /* Pop out slightly */
+    100% { opacity: 1; transform: scale(1); }
+}
+
+#qr-code-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+#qr-code-display img {
+    /* Existing styles remain */
+    border: 5px solid #eceff1; /* Lighter border for QR */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    animation: qrPopIn 0.8s ease-out forwards; /* QR pop-in animation */
+    max-width: 250px; /* Constrain QR image size */
+    height: auto;
+}
+
+@keyframes qrPopIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+#qr-link-text, #qr-link {
+    color: #5c6bc0; /* Slightly darker Material UI blue for links */
+    font-size: 0.95em;
+    margin-top: 15px;
+    opacity: 0;
+    animation: fadeInText 1s forwards;
+    animation-delay: 0.5s; /* Delay text animation */
+}
+
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#message {
+    margin-top: 25px;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+/* Responsive adjustments for two-column layout */
+@media (min-width: 992px) { /* Apply two-column layout on larger screens */
+    .two-column-layout {
+        flex-direction: row;
+        align-items: flex-start; /* Align items to the top */
+    }
+
+    .left-panel,
+    .right-panel {
+        flex: 1;
+    }
+
+    .right-panel {
+        margin-left: 30px; /* Space between panels */
+    }
+
+    .container {
+        max-width: 900px; /* Wider container for two-column layout */
+        padding: 50px;
+    }
+}
+
+/* Existing Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+        margin: 15px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .form-group input[type="text"],
+    button {
+        font-size: 1em;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-size: 1em;
+        margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"] {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px 15px;
+        font-weight: 500;
+        border-radius: 5px;
+    }
+
+    #message {
+        font-size: 0.9em;
+        margin-top: 15px;
+    }
+}
