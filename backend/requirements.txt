@@ -1,7 +1,9 @@
 Flask
 Flask-Cors
+gunicorn
 qrcode
 Pillow
+numpy
 gspread
 oauth2client
 gspread_formatting
