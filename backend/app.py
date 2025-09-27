@@ -7,7 +7,7 @@ from flask_cors import CORS
 import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from sheet_manager import SheetManager # Changed from relative to direct import
+from backend.sheet_manager import SheetManager
 import os
 
 app = Flask(__name__)
