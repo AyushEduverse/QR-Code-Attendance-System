@@ -2,7 +2,7 @@ import base64
 import io
 import qrcode
 from PIL import Image
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import datetime
 import gspread
@@ -10,30 +10,22 @@ from oauth2client.service_account import ServiceAccountCredentials
 from backend.sheet_manager import SheetManager
 import os
 
-app = Flask(__name__)
-CORS(app) # Enable CORS for all routes
+# Initialize Flask app and enable CORS
+app = Flask(__name__, static_folder="frontend")  # frontend folder contains teacher.html
+CORS(app)
 
 # Google Sheets API setup
-# Move instantiation to use SheetManager
-spreadsheet_name = "QR Attendance Records" # This will be your main spreadsheet
+spreadsheet_name = "QR Attendance Records"
 creds_file_path = os.path.join(os.path.dirname(__file__), 'creds.json')
 sheet_manager = SheetManager(creds_file_path, spreadsheet_name)
 
-# Remove the old try-except block for sheet initialization
-# The sheet_manager will handle connection logic
-
-# @app.route('/')
-# def home():
-#     return "Welcome to the QR Attendance Backend!"
-# Optional: /teacher route bhi
+# Routes to serve teacher.html
+@app.route('/')
 @app.route('/teacher')
 def teacher():
     return send_from_directory(app.static_folder, 'teacher.html')
 
-@app.route('/')
-def home():
-    return send_from_directory(app.static_folder, 'teacher.html')
-
+# QR code generation
 @app.route('/generate_qr', methods=['GET'])
 def generate_qr():
     data = request.args.get('data')
@@ -56,6 +48,7 @@ def generate_qr():
 
     return jsonify({'qr_code': image_base64})
 
+# Create session sheet
 @app.route('/create_session_sheet', methods=['POST'])
 def create_session_sheet():
     data = request.get_json()
@@ -73,12 +66,12 @@ def create_session_sheet():
     else:
         return jsonify({'error': f'Failed to create session sheet \'{session_name}\'.'}), 500
 
+# Submit attendance
 @app.route('/submit_attendance', methods=['POST'])
 def submit_attendance():
     data = request.get_json()
     name = data.get('name')
     roll_number = data.get('roll_number')
-    # qr_data now contains the session name
     session_name = data.get('qr_data')
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -99,6 +92,4 @@ def submit_attendance():
         return jsonify({'error': 'Failed to submit attendance.'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
+    app.run(host='0.0.0.0', port=10000, debug=True)
