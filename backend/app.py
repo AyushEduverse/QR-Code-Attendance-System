@@ -22,9 +22,18 @@ sheet_manager = SheetManager(creds_file_path, spreadsheet_name)
 # Remove the old try-except block for sheet initialization
 # The sheet_manager will handle connection logic
 
+# @app.route('/')
+# def home():
+#     return "Welcome to the QR Attendance Backend!"
+
 @app.route('/')
 def home():
-    return "Welcome to the QR Attendance Backend!"
+    return send_from_directory(app.static_folder, 'teacher.html')
+
+# Optional: /teacher route bhi
+@app.route('/teacher')
+def teacher():
+    return send_from_directory(app.static_folder, 'teacher.html')
 
 @app.route('/generate_qr', methods=['GET'])
 def generate_qr():
